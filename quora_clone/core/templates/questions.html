@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <!-- Left Side: Questions -->
+  <div class="col-md-8">
+    <h3>All Questions</h3>
+    <hr>
+    {% for q in questions %}
+      <div class="mb-3">
+        <a href="{% url 'question_detail' q.pk %}" class="h5 d-block">{{ q.title }}</a>
+        <small class="text-muted">Asked by {{ q.user.username }}</small>
+      </div>
+    {% empty %}
+      <p>No questions have been posted yet.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Right Side: Ask a Question -->
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title mb-3">Ask a Question</h4>
+        <form method="post">{% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ question.title }}</h2>
+<p>{{ question.body }}</p>
+
+<h3>Answers:</h3>
+{% for a in answers %}
+  <p>{{ a.body }} - {{ a.user.username }} 
+     <a href="{% url 'like_answer' a.pk %}">👍 {{ a.total_likes }}</a>
+  </p>
+{% endfor %}
+
+<h4>Your Answer:</h4>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
